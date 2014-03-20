@@ -1,0 +1,26 @@
+<configuration>
+
+  <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%yellow(%date) %highlight(%level) %yellow(%logger) %message%n%xException</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="file" class="ch.qos.logback.core.FileAppender">
+    <encoder>
+      <pattern>%date %level %logger %message%n%xException</pattern>
+    </encoder>
+    <file>process.log</file>
+    <append>true</append>
+  </appender>
+
+  <logger name="application" level="INFO"/>
+  <logger name="org.activiti" level="ERROR"/>
+  <logger name="process" level="INFO"/>
+
+  <root level="ERROR">
+    <appender-ref ref="console"/>
+    <appender-ref ref="file"/>
+  </root>
+
+</configuration>

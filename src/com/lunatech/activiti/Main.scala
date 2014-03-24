@@ -17,24 +17,28 @@ object Main {
 
   val logger = LoggerFactory.getLogger("application")
 
+  /**
+   * Executes a simple Activiti process three times.
+   */
   def main(arguments: Array[String]) {
     logger.info("Main")
 
     val processEngine = new ProcessEngineWrapper
 
     logger.info("Deploy business process")
+    // (start) --flow1--> [example-task] --flow2--> (end)
     processEngine deploy {
       <process id="logging-test" name="Logging Test" isExecutable="true">
         <startEvent id="start" name="Start"></startEvent>
-        <sequenceFlow id="flow1" sourceRef="start" targetRef="task"></sequenceFlow>
-        <serviceTask id="task" name="Service Task" activiti:class={classOf[ExampleServiceTask].getName}></serviceTask>
-        <sequenceFlow id="flow2" sourceRef="task" targetRef="end"></sequenceFlow>
+        <sequenceFlow id="flow1" sourceRef="start" targetRef="example-task"></sequenceFlow>
+        <serviceTask id="example-task" name="Service Task" activiti:class={classOf[ExampleServiceTask].getName}></serviceTask>
+        <sequenceFlow id="flow2" sourceRef="example-task" targetRef="end"></sequenceFlow>
         <endEvent id="end" name="End"></endEvent>
       </process>
     }
 
     logger.info("Execute business processes")
-    for (i <- 1 to 10) {
+    for (i <- 1 to 3) {
       val processVariables = Map("number" -> number, "country" -> country, "currency" -> currency)
       processEngine execute ("logging-test", processVariables)
     }

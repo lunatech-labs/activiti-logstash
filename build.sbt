@@ -8,7 +8,7 @@ resolvers ++= Seq(
 libraryDependencies ++= Seq(
   "ch.qos.logback" % "logback-classic" % "1.1.1",
   "com.h2database" % "h2" % "1.3.175",
-  "org.activiti" % "activiti-engine" % "5.14")
+  "org.activiti" % "activiti-engine" % "5.15")
 
 resourceDirectory in Compile := file("resources")
 

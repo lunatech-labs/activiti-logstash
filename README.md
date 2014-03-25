@@ -15,11 +15,14 @@ Use`sbt run` to run the example.
 
 The application consists of a minimal amount of code that performs the following steps.
 
-1. `Main` deploys the business process from an XML definition, and executes it with random data in process variables.
-2. `LoggingEventListener` logs the current process variables each time an activity (process node) is activated.
-3. `logback.xml` configures logback to write a log file.
-4. `logstash.conf` configures logstash to parse the resulting log file and insert process logging into ElasticSearch.
-5. Kibana’s default logstash dashboard displays the results.
+1. The `Main` class is the entry point, which starts the Activiti engine using an in-memory H2 database and deploys the
+   business process from an XML definition.
+2. `Main` then executes the deployed process a few times with random data in process variables.
+3. `LoggingEventListener` is an Activiti event listener that logs the current process variables each time an activity
+   (process node) is activated.
+4. `logback.xml` configures [logback](http://logback.qos.ch) to write a log file.
+5. `logstash.conf` configures logstash to parse the resulting log file and insert process logging into ElasticSearch.
+6. Kibana’s default logstash dashboard displays the results.
 
 
 ## Example output
